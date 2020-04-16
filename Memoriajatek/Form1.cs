@@ -60,17 +60,26 @@ namespace Memoriajatek
             }
         }
 
+        /// <summary>
+        /// Minden címke Klikk eseményét kezeli
+        /// </summary>
+        /// <param name="sender">A címke, amire kattintottak</param>
+        /// <param name="e"></param>
+        private void label_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
 
+            if (clickedLabel != null)
+            {
+                // Ha a címke színe fekete, akkor a játékos már rákattintott
+                // és az ikon is megjelent
+                // így hagyja figyelmen kívül az utasítást
+                if (clickedLabel.ForeColor == Color.Black)
+                    return;
 
-
-
-
-
-
-
-
-
-
+                clickedLabel.ForeColor = Color.Black;
+            }
+        }
 
     }
 }
