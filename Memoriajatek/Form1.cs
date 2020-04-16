@@ -48,9 +48,11 @@ namespace Memoriajatek
 
 
 
-        /// <summary>
-        /// Minden ikont hozzárendel egy véletlenszerű négyzethez
-        /// </summary>
+                                                                /// <summary>
+                                                                /// Minden ikont hozzárendel egy véletlenszerű négyzethez
+                                                                /// </summary>
+                                                                /// 
+
         private void AssignIconsToSquares()
         {
             // A TableLayoutPanel-nek 16 címkéje van,
@@ -70,11 +72,15 @@ namespace Memoriajatek
             }
         }
 
-        /// <summary>
-        /// Minden címke Klikk eseményét kezeli
-        /// </summary>
-        /// <param name="sender">A címke, amire kattintottak</param>
-        /// <param name="e"></param>
+                                                                /// <summary>
+                                                                /// Minden címke Klikk eseményét kezeli
+                                                                /// </summary>
+                                                                /// <param name="sender">A címke, amire kattintottak</param>
+                                                                /// <param name="e"></param>
+                                                                /// 
+
+
+
         private void label_Click(object sender, EventArgs e)
         {
             // The stopper csak akkor működik, ha két nem egyező 
@@ -120,7 +126,8 @@ namespace Memoriajatek
                 if (firstClicked.Text == secondClicked.Text)
                 {
                     firstClicked = null;
-                    secondClicked = null;
+                    secondClicked = null; 
+                    CheckForWinner();
                     return;
                 }
                
@@ -132,14 +139,14 @@ namespace Memoriajatek
             }
 
         }
-        /// <summary>
-        /// Az stopper elindul, ha a játékos
-        /// két ikonra klikkel, amik nem egyeznek meg,
-        /// addig elszámol háromnegyed másodpercig,
-        /// majd leáll és elrejti mindkét ikont
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+                                                                /// <summary>
+                                                                /// Az stopper elindul, ha a játékos
+                                                                /// két ikonra klikkel, amik nem egyeznek meg,
+                                                                /// addig elszámol háromnegyed másodpercig,
+                                                                /// majd leáll és elrejti mindkét ikont
+                                                                /// </summary>
+                                                                /// <param name="sender"></param>
+                                                                /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Megállítja a stoppert
@@ -154,6 +161,36 @@ namespace Memoriajatek
             // akkor tudja majd a program, hogy ez lesz az első kattintás
             firstClicked = null;
             secondClicked = null;
+        }
+
+                                                                    /// <summary>
+                                                                    /// Ellenőrzi, hogy meg lett e az összes ikon párja úgy,
+                                                                    /// hogy összehasonlítja az előtér színét a háttérszínnel.
+                                                                    /// Ha mindegyik ikonnak megegyezik, akkor a játékos nyert
+                                                                    /// </summary>
+       
+        
+        
+        private void CheckForWinner()
+        {
+            // Végighalad mindegyik címkén a TableLayoutPanel-en, 
+            // ellenőrzi, hogy mindegyik ikon megegyezik-e
+            foreach (Control control in tableLayoutPanel1.Controls)
+            {
+                Label iconLabel = control as Label;
+
+                if (iconLabel != null)
+                {
+                    if (iconLabel.ForeColor == iconLabel.BackColor)
+                        return;
+                }
+            }
+
+            // Ha a ciklus nem tér vissza, akkor nem talált
+            // több párosítatlan ikont
+            // Ami azt jelenti, hogy a játékos nyert. Megmutatja az üzenetet és bezárja az űrlapot
+            MessageBox.Show("Sikerült megtalálni az összes párt!", "Gratulálok");
+            Close();
         }
 
 
