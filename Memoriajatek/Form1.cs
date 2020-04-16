@@ -77,8 +77,6 @@ namespace Memoriajatek
         /// <param name="e"></param>
         private void label_Click(object sender, EventArgs e)
         {
-
-            
             // The stopper csak akkor működik, ha két nem egyező 
             // ikont jelenített meg a játékosnak,
             // addig minden klikkelést figyelmen kívül hagy
@@ -118,7 +116,17 @@ namespace Memoriajatek
                 // akkor indítsa el a Stopper időmérését 
                 // (várni fog háromnegyed másodpercet 
                 // azután elrejti az ikonokat)
+
+                if (firstClicked.Text == secondClicked.Text)
+                {
+                    firstClicked = null;
+                    secondClicked = null;
+                    return;
+                }
+               
                 timer1.Start();
+                
+                
             
 
             }
